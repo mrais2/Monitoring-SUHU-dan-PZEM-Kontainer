@@ -1,4 +1,4 @@
 Update info 
---Wiring oke ( 100% )
---Perancangan mekanik dan Eletric ( 40% )  
---Program on pgroses coming soon
+Wiring oke ( 100% )
+Perancangan mekanik dan Eletric ( 40% )  
+Program on pgroses coming soon

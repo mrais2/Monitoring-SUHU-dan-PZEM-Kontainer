@@ -1,0 +1,62 @@
+function doGet(e) { 
+  Logger.log(JSON.stringify(e));
+  var result = 'Ok';
+
+  if (!e.parameter || Object.keys(e.parameter).length === 0) {
+    result = 'No Parameters';
+  } else {
+    var sheet_id = '1LrcaqQH4DFSqMyrNBUUMIZsxi1QU4K-Pn3kYRpT_EoM';  // Ganti dengan Spreadsheet ID kamu
+    var sheet = SpreadsheetApp.openById(sheet_id).getActiveSheet();
+    var newRow = sheet.getLastRow() + 1;						
+    var rowData = [];
+
+    var Curr_Date = new Date();
+    rowData[0] = Curr_Date; // Date in column A
+    var Curr_Time = Utilities.formatDate(Curr_Date, "Asia/Karachi", 'HH:mm:ss');
+    rowData[1] = Curr_Time; // Time in column B
+
+    for (var param in e.parameter) {
+      Logger.log('In for loop, param=' + param);
+      var value = stripQuotes(e.parameter[param]);
+      Logger.log(param + ':' + e.parameter[param]);
+      switch (param) {
+        case 'voltage':
+          rowData[2] = value; // Column C
+          result += ' voltage written';
+          break;
+        case 'current':
+          rowData[3] = value; // Column D
+          result += ' current written';
+          break;
+        case 'power':
+          rowData[4] = value; // Column E
+          result += ' power written';
+          break;
+        case 'energy':
+          rowData[5] = value; // Column F
+          result += ' energy written';
+          break;
+        case 'frequency':
+          rowData[6] = value; // Column G
+          result += ' frequency written';
+          break;
+        case 'suhu':
+          rowData[7] = value; // Column H
+          result += ' suhu written';
+          break;
+        default:
+          result += " unsupported parameter: " + param;
+      }
+    }
+
+    Logger.log(JSON.stringify(rowData));
+    var newRange = sheet.getRange(newRow, 1, 1, rowData.length);
+    newRange.setValues([rowData]);
+  }
+
+  return ContentService.createTextOutput(result);
+}
+
+function stripQuotes(value) {
+  return value.replace(/^["']|['"]$/g, "");
+}

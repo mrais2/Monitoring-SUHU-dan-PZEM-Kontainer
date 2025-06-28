@@ -27,6 +27,10 @@ Proyek ini merupakan sistem monitoring suhu dan energi menggunakan ESP32 yang te
 
 ---
 
+## 📸 Image
+![alat](image/alat.jpeg)
+
+
 ## 🔧 Konfigurasi
 
 ### WiFi dan Telegram
